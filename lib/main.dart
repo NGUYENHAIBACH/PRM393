@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prm393_project/Screens/homepage.dart';
+import 'package:prm393_project/theme/app_theme.dart';
 
 void main() {
   // List<int> x=[1,3,5,7,9];
@@ -12,9 +13,16 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: true,
-        home: Homepage()
+    // Rebuild MaterialApp whenever the theme mode changes (Exercise 4)
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: AppTheme.themeMode,
+      builder: (context, mode, _) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: mode,
+        home: const Homepage(),
+      ),
     );
   }
 }

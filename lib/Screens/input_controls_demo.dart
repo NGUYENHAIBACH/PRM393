@@ -8,8 +8,7 @@ class InputControlsDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
-        title: const Text('Exercise 2 - Input Controls Demo'),
+        title: const Text('Input Controls'),
       ),
       body: const InputControlsContent(),
     );
