@@ -1,40 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:prm393_project/Screens/homepage.dart';
-import 'package:prm393_project/theme/app_theme.dart';
+// import 'package:prm393_project/Screens/homepage.dart';
+import 'package:prm393_project/Screens/productHomepage.dart';
 
 void main() {
   // List<int> x=[1,3,5,7,9];
   // List<int> y=[...x,for(var z in x) if(z%2==0) z+1];
   // print(y);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isDarkMode = false;
+
+  void changeTheme(bool value) {
+    setState(() {
+      isDarkMode = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Rebuild MaterialApp whenever the theme mode changes (Exercise 4)
-    return ValueListenableBuilder<ThemeMode>(
-      valueListenable: AppTheme.themeMode,
-      builder: (context, mode, _) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
-        themeMode: mode,
-        home: const Homepage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: true,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.indigo,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      // home: Homepage(isDarkMode: isDarkMode, onThemeChanged: changeTheme),
+      home: const productHomepage(),
     );
   }
 }
 
-class BodyScreen extends StatelessWidget{
+class BodyScreen extends StatelessWidget {
   const BodyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("This is the first time with flutter!"),
-    );
+    return const Center(child: Text("This is the first time with flutter!"));
   }
 }
 

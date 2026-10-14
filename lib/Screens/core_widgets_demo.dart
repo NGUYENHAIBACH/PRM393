@@ -8,7 +8,8 @@ class CoreWidgetsDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Core Widgets'),
+        backgroundColor: Colors.yellowAccent,
+        title: const Text('Exercise 1 - Core Widgets Demo'),
       ),
       body: const CoreWidgetsContent(),
     );

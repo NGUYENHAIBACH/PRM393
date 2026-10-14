@@ -1,79 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:prm393_project/Widgets/app_structure_content.dart';
-import 'package:prm393_project/theme/app_theme.dart';
 
-class AppStructureDemo extends StatefulWidget {
-  const AppStructureDemo({super.key});
+class AppStructureDemo extends StatelessWidget {
+  const AppStructureDemo({
+    super.key,
+    required this.isDarkMode,
+    required this.onThemeChanged,
+  });
 
-  @override
-  State<AppStructureDemo> createState() => _AppStructureDemoState();
-}
-
-class _AppStructureDemoState extends State<AppStructureDemo> {
-  // Movies added to the watchlist with the FloatingActionButton
-  final List<String> watchlist = [];
-
-  static const List<String> suggestions = [
-    'Dune: Part Two',
-    'Oppenheimer',
-    'The Batman',
-    'Spider-Verse',
-    'Top Gun: Maverick',
-    'Everything Everywhere',
-  ];
-
-  void addMovie() {
-    final title = suggestions[watchlist.length % suggestions.length];
-    setState(() {
-      watchlist.add(title);
-    });
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text('Added "$title" to watchlist'),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-  }
-
-  void removeMovie(int index) {
-    setState(() {
-      watchlist.removeAt(index);
-    });
-  }
+  final bool isDarkMode;
+  final ValueChanged<bool> onThemeChanged;
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    // Scaffold = AppBar + Body + FloatingActionButton
     return Scaffold(
       appBar: AppBar(
-        title: const Text('App Structure'),
+        title: const Text('Exercise 4 - App Structure & Theme'),
         actions: [
-          // Dark Mode toggle: changes MaterialApp.themeMode
-          Icon(
-            isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-            size: 20,
-          ),
-          const SizedBox(width: 4),
+          const Text('Dark'),
           Switch(
-            value: isDark,
-            onChanged: AppTheme.toggleDarkMode,
+            value: Theme.of(context).brightness == Brightness.dark,
+            onChanged: onThemeChanged,
           ),
-          const SizedBox(width: 8),
         ],
       ),
-      body: AppStructureContent(
-        isDark: isDark,
-        watchlist: watchlist,
-        onRemove: removeMovie,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: addMovie,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Add movie'),
+      body: const AppStructureContent(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Theme changed with the app structure demo.'),
+            ),
+          );
+        },
+        child: const Icon(Icons.palette),
       ),
     );
   }

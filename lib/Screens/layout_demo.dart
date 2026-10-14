@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prm393_project/Widgets/layout_content.dart';
+import 'package:prm393_project/Widgets/layout_demo_content.dart';
 
 class LayoutDemo extends StatelessWidget {
   const LayoutDemo({super.key});
@@ -8,9 +8,10 @@ class LayoutDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Layout Basics'),
+        backgroundColor: Colors.yellowAccent,
+        title: const Text('Exercise 3 - Layout Demo'),
       ),
-      body: const LayoutContent(),
+      body: const LayoutDemoContent(),
     );
   }
 }
